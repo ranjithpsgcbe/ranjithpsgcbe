@@ -1,21 +1,29 @@
 package runner;
 
-import org.testng.annotations.Test;
+import com.cucumber.listener.Reporter;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
+import org.junit.AfterClass;
+import org.junit.runner.RunWith;
+import cucumber.api.junit.Cucumber;
+
+import java.io.File;
 
 
-
-
-// Uncomment @RunWith if you are using Junit to run Test 
-// @RunWith(Cucumber.class)
-
+@RunWith(Cucumber.class)
 @CucumberOptions(features={"src//test//java//features//SimpleScenario.feature"}
 					,glue={"stepdefinations","utility"}
-					,plugin = {"pretty", "html:target/cucumber"}
-					, tags ={"@web"}
+					,plugin = {"html:target/cucumber-html-report","pretty",
+		"com.cucumber.listener.ExtentCucumberFormatter:output/report.html","json:target/cucumber/cucumber.json"}
+					, tags ={"@Test"}
 		)
-@Test
-public class RunTest extends AbstractTestNGCucumberTests{
 
+public class RunTest extends AbstractTestNGCucumberTests {
+	@AfterClass
+	public static void writeExtentReport() {
+		Reporter.loadXMLConfig(new File("./src/test/java/utility/extent-config.xml"));
+		Reporter.setSystemInfo("User Name", "Ranjith");
+		Reporter.setSystemInfo("Application Name", "Test App");
+		Reporter.setTestRunnerOutput("Test Execution Cucumber Report");
+	}
 }

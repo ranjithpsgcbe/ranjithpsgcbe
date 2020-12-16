@@ -1,5 +1,7 @@
 package stepdefinations;
 
+import com.aventstack.extentreports.Status;
+import com.cucumber.listener.Reporter;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,12 +23,15 @@ public class Online_Calculator {
 	
 	@Given("^I open a browser$")
 	public void i_open_a_browser() throws Throwable {
+
 		System.out.println("Browser is opened successfully");
 	}
 
 	@When("^I navigate to Online Calculator page$")
 	public void i_navigate_to_Online_Calculator_page() throws Throwable {
 		driver.get("https://www.online-calculator.com/full-screen-calculator/");
+		driver.manage().window().maximize();
+		Reporter.addStepLog(Status.PASS+" Browser Launch");
 		Hook.takeSnapShot(driver, "Screenshot//test1.png") ;
 	}
 

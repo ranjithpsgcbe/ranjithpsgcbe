@@ -19,10 +19,10 @@ public class Hook {
 
 	private static WebDriver driver;
 	
-	@Before("@web")
+	@Before
 	public void setUp()
 	{
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"//drivers//chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/drivers/chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 		driver = new ChromeDriver( options );
